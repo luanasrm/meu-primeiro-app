@@ -1,6 +1,7 @@
 
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import ItemTarefa from "./ItemTarefa";
 
 export default function App() {
   // Criando um Array de Objetos em JavaScript puro
@@ -11,17 +12,23 @@ export default function App() {
     { id: 4, descricao: "Finalizar Roteiro de Pratica 02", concluida: false },
   ];
 
+  // Filtrando apenas as tarefas pendentes
+  const tarefasPendentes = tarefas.filter(
+    (tarefa) => !tarefa.concluida
+  );
+
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>Lista de Tarefas</Text>
 
-     {tarefas.map((tarefa) => (
-  <View key={tarefa.id} style={styles.card}>
-    <Text style={styles.textoTarefa}>
-      {tarefa.concluida ? "[OK] " : "[PENDENTE] "}
-      {tarefa.descricao}
-    </Text>
-  </View>
+    {tarefas.map((tarefa) => (
+  <ItemTarefa key={tarefa.id} tarefa={tarefa} />
+))}
+      {/* Lista de tarefas pendentes */}
+      <Text style={styles.subtitulo}>Tarefas Pendentes</Text>
+
+      {tarefasPendentes.map((tarefa) => (
+  <ItemTarefa key={tarefa.id} tarefa={tarefa} />
 ))}
     </View>
   );
@@ -41,6 +48,15 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     color: "#20325a",
   },
+
+  subtitulo: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginTop: 20,
+    marginBottom: 10,
+    color: "#20325a",
+  },
+
   card: {
     backgroundColor: "#ffffff",
     padding: 15,
@@ -55,6 +71,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+
   textoTarefa: {
     fontSize: 16,
     color: "#333333",
