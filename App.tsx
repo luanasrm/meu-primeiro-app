@@ -2,29 +2,31 @@ import React, { useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import ItemTarefa from "./ItemTarefa";
 
+interface Tarefa {
+  id: number;
+  descricao: string;
+  concluida: boolean;
+}
+
 export default function App() {
-  // Criando o estado com a lista de tarefas
-  const [tarefas, setTarefas] = useState([
+  const [tarefas, setTarefas] = useState<Tarefa[]>([
     { id: 1, descricao: "Estudar ES6+", concluida: true },
     { id: 2, descricao: "Configurar ambiente Expo", concluida: true },
     { id: 3, descricao: "Entender o funcionamento do JSX", concluida: false },
     { id: 4, descricao: "Finalizar Roteiro de Pratica 02", concluida: false },
   ]);
 
-  // Filtrando apenas as tarefas pendentes
   const tarefasPendentes = tarefas.filter(
     (tarefa) => !tarefa.concluida
   );
 
-  // Função para adicionar uma nova tarefa
   const adicionarTarefa = () => {
-    const novaTarefa = {
+    const novaTarefa: Tarefa = {
       id: tarefas.length + 1,
       descricao: "Nova tarefa",
       concluida: false,
     };
 
-    // Spread Operator: mantém as tarefas antigas e adiciona a nova
     setTarefas([...tarefas, novaTarefa]);
   };
 
@@ -37,7 +39,6 @@ export default function App() {
         onPress={adicionarTarefa}
       />
 
-      {/* Lista principal */}
       {tarefas.map((tarefa) => (
         <ItemTarefa
           key={tarefa.id}
@@ -45,7 +46,6 @@ export default function App() {
         />
       ))}
 
-      {/* Lista de tarefas pendentes */}
       <Text style={styles.subtitulo}>Tarefas Pendentes</Text>
 
       {tarefasPendentes.map((tarefa) => (
