@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   numero: {
     fontSize: 48,
     fontWeight: "bold",
-    color: "#4caf50",
+    color: "#af4c81",
     marginBottom: 20,
   },
 
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   },
 
   botao: {
-    backgroundColor: "#4caf50",
+    backgroundColor: "#160319",
     width: 70,
     height: 50,
     borderRadius: 10,
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   },
 
   botaoZerar: {
-    backgroundColor: "#f44336",
+    backgroundColor: "#f47836",
     width: 100,
     height: 50,
     borderRadius: 10,
