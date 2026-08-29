@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -11,10 +12,11 @@ import {
 
 export default function App() {
   const [nome, setNome] = useState("Luana");
+  const [seguindo, setSeguindo] = useState(false);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      
+
       {/* CARTÃO 1 */}
       <View style={styles.cartao}>
         <Image
@@ -31,10 +33,15 @@ export default function App() {
         </Text>
 
         <TouchableOpacity
-          style={styles.botao}
-          onPress={() => alert("Seguindo " + nome)}
+          style={[
+            styles.botao,
+            seguindo && styles.botaoDesativado,
+          ]}
+          onPress={() => setSeguindo(!seguindo)}
         >
-          <Text style={styles.textoBotao}>Seguir</Text>
+          <Text style={styles.textoBotao}>
+            {seguindo ? "Já seguindo" : "Seguir"}
+          </Text>
         </TouchableOpacity>
 
         <TextInput
@@ -143,6 +150,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 
+  botaoDesativado: {
+    backgroundColor: "#808080",
+  },
+
   textoBotao: {
     color: "#FFFFFF",
     fontWeight: "bold",
@@ -158,3 +169,4 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+
