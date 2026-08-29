@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -9,6 +8,8 @@ import {
   TextInput,
   ScrollView,
 } from "react-native";
+
+import JogoDaVelha from "./JogoDaVelha";
 
 export default function App() {
   const [nome, setNome] = useState("Luana");
@@ -98,6 +99,9 @@ export default function App() {
         </TouchableOpacity>
       </View>
 
+      {/* JOGO DA VELHA */}
+      <JogoDaVelha />
+
     </ScrollView>
   );
 }
@@ -169,4 +173,3 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
-
