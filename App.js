@@ -6,13 +6,16 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
+  ScrollView,
 } from "react-native";
 
 export default function App() {
   const [nome, setNome] = useState("Luana");
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
+      
+      {/* CARTÃO 1 */}
       <View style={styles.cartao}>
         <Image
           source={{
@@ -41,16 +44,62 @@ export default function App() {
           onChangeText={(texto) => setNome(texto)}
         />
       </View>
-    </View>
+
+      {/* CARTÃO 2 */}
+      <View style={styles.cartao}>
+        <Image
+          source={{
+            uri: "https://www.dicasfree.com/wp-content/uploads/kiwi.jpg",
+          }}
+          style={styles.avatar}
+        />
+
+        <Text style={styles.nomeUsuario}>Jéssica</Text>
+
+        <Text style={styles.profissao}>
+          Desenvolvedora Front-end
+        </Text>
+
+        <TouchableOpacity
+          style={styles.botao}
+          onPress={() => alert("Seguindo Jéssica")}
+        >
+          <Text style={styles.textoBotao}>Seguir</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* CARTÃO 3 */}
+      <View style={styles.cartao}>
+        <Image
+          source={{
+            uri: "https://www.capitalmudas.com.br/uploads/fornecedores/2019/06/laranja-seleta.jpg",
+          }}
+          style={styles.avatar}
+        />
+
+        <Text style={styles.nomeUsuario}>Marcos</Text>
+
+        <Text style={styles.profissao}>
+          Engenheiro de Software
+        </Text>
+
+        <TouchableOpacity
+          style={styles.botao}
+          onPress={() => alert("Seguindo Marcos")}
+        >
+          <Text style={styles.textoBotao}>Seguir</Text>
+        </TouchableOpacity>
+      </View>
+
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#F5F5F5",
-    justifyContent: "center",
+    paddingVertical: 30,
     alignItems: "center",
+    backgroundColor: "#F5F5F5",
   },
 
   cartao: {
@@ -63,6 +112,7 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     elevation: 5,
     width: "80%",
+    marginBottom: 25,
   },
 
   avatar: {
