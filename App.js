@@ -5,6 +5,7 @@ import {
   Text,
   View,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
 
 export default function UrnaEletronica() {
@@ -12,6 +13,9 @@ export default function UrnaEletronica() {
   const [votosA, setVotosA] = useState(0);
   const [votosB, setVotosB] = useState(0);
   const [votosC, setVotosC] = useState(0);
+
+  // Estado para o nome do mesário
+  const [nomeMesario, setNomeMesario] = useState("");
 
   // Total de votos é um dado derivado dos estados
   const totalVotos = votosA + votosB + votosC;
@@ -36,6 +40,18 @@ export default function UrnaEletronica() {
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>Painel de Votação</Text>
+
+      {/* Campo do mesário */}
+      <TextInput
+        style={styles.input}
+        placeholder="Digite o nome do mesário"
+        value={nomeMesario}
+        onChangeText={setNomeMesario}
+      />
+
+      <Text style={styles.mesario}>
+        Mesário atual: {nomeMesario || "Não informado"}
+      </Text>
 
       {/* Candidato A */}
       <View style={styles.candidato}>
@@ -127,8 +143,25 @@ const styles = StyleSheet.create({
   titulo: {
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 30,
+    marginBottom: 20,
     color: "#14325A",
+  },
+
+  input: {
+    width: "90%",
+    backgroundColor: "#FFFFFF",
+    borderWidth: 1,
+    borderColor: "#CCCCCC",
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 8,
+    fontSize: 16,
+  },
+
+  mesario: {
+    fontSize: 16,
+    color: "#555555",
+    marginBottom: 20,
   },
 
   candidato: {
