@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -11,6 +12,9 @@ export default function UrnaEletronica() {
   const [votosA, setVotosA] = useState(0);
   const [votosB, setVotosB] = useState(0);
   const [votosC, setVotosC] = useState(0);
+
+// Total de votos é um dado derivado dos estados
+const totalVotos = votosA + votosB + votosC;
 
   // Função para zerar todos os votos
   const zerarVotos = () => {
@@ -33,7 +37,7 @@ export default function UrnaEletronica() {
 
         <TouchableOpacity
           style={styles.botao}
-          onPress={() => setVotosA(votosA + 1)}
+          onPress={() => setVotosA(prev => prev + 1)}
         >
           <Text style={styles.textoBotao}>Votar</Text>
         </TouchableOpacity>
@@ -49,7 +53,7 @@ export default function UrnaEletronica() {
 
         <TouchableOpacity
           style={styles.botao}
-          onPress={() => setVotosB(votosB + 1)}
+          onPress={() => setVotosB(prev => prev + 1)}
         >
           <Text style={styles.textoBotao}>Votar</Text>
         </TouchableOpacity>
@@ -65,7 +69,7 @@ export default function UrnaEletronica() {
 
         <TouchableOpacity
           style={styles.botao}
-          onPress={() => setVotosC(votosC + 1)}
+          onPress={() => setVotosC(prev => prev + 1)}
         >
           <Text style={styles.textoBotao}>Votar</Text>
         </TouchableOpacity>
@@ -73,7 +77,7 @@ export default function UrnaEletronica() {
 
       {/* Total de votos */}
       <Text style={styles.total}>
-        Total de votos: {votosA + votosB + votosC}
+        Total de votos: {totalVotos}
       </Text>
 
       {/* Botão para zerar */}
