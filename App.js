@@ -13,8 +13,18 @@ export default function UrnaEletronica() {
   const [votosB, setVotosB] = useState(0);
   const [votosC, setVotosC] = useState(0);
 
-// Total de votos é um dado derivado dos estados
-const totalVotos = votosA + votosB + votosC;
+  // Total de votos é um dado derivado dos estados
+  const totalVotos = votosA + votosB + votosC;
+
+  // Porcentagem de votos de cada candidato
+  const porcentagemA =
+    totalVotos === 0 ? 0 : (votosA / totalVotos) * 100;
+
+  const porcentagemB =
+    totalVotos === 0 ? 0 : (votosB / totalVotos) * 100;
+
+  const porcentagemC =
+    totalVotos === 0 ? 0 : (votosC / totalVotos) * 100;
 
   // Função para zerar todos os votos
   const zerarVotos = () => {
@@ -35,6 +45,10 @@ const totalVotos = votosA + votosB + votosC;
           Votos: {votosA}
         </Text>
 
+        <Text style={styles.porcentagem}>
+          Porcentagem: {porcentagemA.toFixed(1)}%
+        </Text>
+
         <TouchableOpacity
           style={styles.botao}
           onPress={() => setVotosA(prev => prev + 1)}
@@ -51,6 +65,10 @@ const totalVotos = votosA + votosB + votosC;
           Votos: {votosB}
         </Text>
 
+        <Text style={styles.porcentagem}>
+          Porcentagem: {porcentagemB.toFixed(1)}%
+        </Text>
+
         <TouchableOpacity
           style={styles.botao}
           onPress={() => setVotosB(prev => prev + 1)}
@@ -65,6 +83,10 @@ const totalVotos = votosA + votosB + votosC;
 
         <Text style={styles.votos}>
           Votos: {votosC}
+        </Text>
+
+        <Text style={styles.porcentagem}>
+          Porcentagem: {porcentagemC.toFixed(1)}%
         </Text>
 
         <TouchableOpacity
@@ -129,6 +151,12 @@ const styles = StyleSheet.create({
   votos: {
     fontSize: 16,
     color: "#555555",
+    marginBottom: 5,
+  },
+
+  porcentagem: {
+    fontSize: 15,
+    color: "#555555",
     marginBottom: 12,
   },
 
@@ -166,3 +194,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
+
