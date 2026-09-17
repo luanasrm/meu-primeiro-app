@@ -3,173 +3,162 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
   TouchableOpacity,
-  TextInput,
-  ScrollView,
 } from "react-native";
 
-import JogoDaVelha from "./JogoDaVelha";
+export default function UrnaEletronica() {
+  // Estados independentes para cada candidato
+  const [votosA, setVotosA] = useState(0);
+  const [votosB, setVotosB] = useState(0);
+  const [votosC, setVotosC] = useState(0);
 
-export default function App() {
-  const [nome, setNome] = useState("Luana");
-  const [seguindo, setSeguindo] = useState(false);
+  // Função para zerar todos os votos
+  const zerarVotos = () => {
+    setVotosA(0);
+    setVotosB(0);
+    setVotosC(0);
+  };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <View style={styles.container}>
+      <Text style={styles.titulo}>Painel de Votação</Text>
 
-      {/* CARTÃO 1 */}
-      <View style={styles.cartao}>
-        <Image
-          source={{
-            uri: "https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=400",
-          }}
-          style={styles.avatar}
-        />
+      {/* Candidato A */}
+      <View style={styles.candidato}>
+        <Text style={styles.nome}>Candidato A</Text>
 
-        <Text style={styles.nomeUsuario}>{nome}</Text>
-
-        <Text style={styles.profissao}>
-          Estudante de Engenharia de Computação
-        </Text>
-
-        <TouchableOpacity
-          style={[
-            styles.botao,
-            seguindo && styles.botaoDesativado,
-          ]}
-          onPress={() => setSeguindo(!seguindo)}
-        >
-          <Text style={styles.textoBotao}>
-            {seguindo ? "Já seguindo" : "Seguir"}
-          </Text>
-        </TouchableOpacity>
-
-        <TextInput
-          style={styles.input}
-          placeholder="Digite seu nome"
-          value={nome}
-          onChangeText={(texto) => setNome(texto)}
-        />
-      </View>
-
-      {/* CARTÃO 2 */}
-      <View style={styles.cartao}>
-        <Image
-          source={{
-            uri: "https://www.dicasfree.com/wp-content/uploads/kiwi.jpg",
-          }}
-          style={styles.avatar}
-        />
-
-        <Text style={styles.nomeUsuario}>Jéssica</Text>
-
-        <Text style={styles.profissao}>
-          Desenvolvedora Front-end
+        <Text style={styles.votos}>
+          Votos: {votosA}
         </Text>
 
         <TouchableOpacity
           style={styles.botao}
-          onPress={() => alert("Seguindo Jéssica")}
+          onPress={() => setVotosA(votosA + 1)}
         >
-          <Text style={styles.textoBotao}>Seguir</Text>
+          <Text style={styles.textoBotao}>Votar</Text>
         </TouchableOpacity>
       </View>
 
-      {/* CARTÃO 3 */}
-      <View style={styles.cartao}>
-        <Image
-          source={{
-            uri: "https://www.capitalmudas.com.br/uploads/fornecedores/2019/06/laranja-seleta.jpg",
-          }}
-          style={styles.avatar}
-        />
+      {/* Candidato B */}
+      <View style={styles.candidato}>
+        <Text style={styles.nome}>Candidato B</Text>
 
-        <Text style={styles.nomeUsuario}>Marcos</Text>
-
-        <Text style={styles.profissao}>
-          Engenheiro de Software
+        <Text style={styles.votos}>
+          Votos: {votosB}
         </Text>
 
         <TouchableOpacity
           style={styles.botao}
-          onPress={() => alert("Seguindo Marcos")}
+          onPress={() => setVotosB(votosB + 1)}
         >
-          <Text style={styles.textoBotao}>Seguir</Text>
+          <Text style={styles.textoBotao}>Votar</Text>
         </TouchableOpacity>
       </View>
 
-      {/* JOGO DA VELHA */}
-      <JogoDaVelha />
+      {/* Candidato C */}
+      <View style={styles.candidato}>
+        <Text style={styles.nome}>Candidato C</Text>
 
-    </ScrollView>
+        <Text style={styles.votos}>
+          Votos: {votosC}
+        </Text>
+
+        <TouchableOpacity
+          style={styles.botao}
+          onPress={() => setVotosC(votosC + 1)}
+        >
+          <Text style={styles.textoBotao}>Votar</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Total de votos */}
+      <Text style={styles.total}>
+        Total de votos: {votosA + votosB + votosC}
+      </Text>
+
+      {/* Botão para zerar */}
+      <TouchableOpacity
+        style={styles.botaoZerar}
+        onPress={zerarVotos}
+      >
+        <Text style={styles.textoBotaoZerar}>
+          Zerar votação
+        </Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 30,
-    alignItems: "center",
+    flex: 1,
     backgroundColor: "#F5F5F5",
-  },
-
-  cartao: {
-    backgroundColor: "#FFFFFF",
-    padding: 30,
-    borderRadius: 15,
+    justifyContent: "center",
     alignItems: "center",
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
-    elevation: 5,
-    width: "80%",
-    marginBottom: 25,
+    padding: 20,
   },
 
-  avatar: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    marginBottom: 15,
-  },
-
-  nomeUsuario: {
-    fontSize: 22,
+  titulo: {
+    fontSize: 24,
     fontWeight: "bold",
+    marginBottom: 30,
     color: "#14325A",
   },
 
-  profissao: {
+  candidato: {
+    width: "90%",
+    backgroundColor: "#FFFFFF",
+    padding: 18,
+    marginBottom: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    elevation: 3,
+  },
+
+  nome: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#14325A",
+    marginBottom: 8,
+  },
+
+  votos: {
     fontSize: 16,
-    color: "#505050",
-    marginBottom: 20,
-    textAlign: "center",
+    color: "#555555",
+    marginBottom: 12,
   },
 
   botao: {
-    backgroundColor: "#0064A0",
+    backgroundColor: "#14325A",
     paddingVertical: 10,
-    paddingHorizontal: 30,
+    paddingHorizontal: 35,
     borderRadius: 8,
-    marginBottom: 20,
-  },
-
-  botaoDesativado: {
-    backgroundColor: "#808080",
   },
 
   textoBotao: {
     color: "#FFFFFF",
-    fontWeight: "bold",
     fontSize: 16,
+    fontWeight: "bold",
   },
 
-  input: {
-    width: "100%",
-    borderWidth: 1,
-    borderColor: "#CCC",
+  total: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#14325A",
+    marginTop: 10,
+    marginBottom: 20,
+  },
+
+  botaoZerar: {
+    backgroundColor: "#C62828",
+    paddingVertical: 12,
+    paddingHorizontal: 30,
     borderRadius: 8,
-    padding: 10,
-    textAlign: "center",
+  },
+
+  textoBotaoZerar: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
