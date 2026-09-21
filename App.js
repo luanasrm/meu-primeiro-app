@@ -5,6 +5,7 @@ import {
   View,
   FlatList,
   TouchableOpacity,
+  RefreshControl,
 } from "react-native";
 
 // Lista inicial de contatos
@@ -90,6 +91,19 @@ export default function Agenda() {
   // Estado que armazena os contatos
   const [contatos, setContatos] = useState(contatosIniciais);
 
+  // Estado que controla o carregamento da atualização
+  const [atualizando, setAtualizando] = useState(false);
+
+  // Atualiza a lista de contatos
+  const atualizarContatos = () => {
+    setAtualizando(true);
+
+    setTimeout(() => {
+      setContatos(contatosIniciais);
+      setAtualizando(false);
+    }, 1500);
+  };
+
   // Função responsável por desenhar cada contato
   const renderizarContato = ({ item }) => (
     <View style={styles.cardContato}>
@@ -134,6 +148,12 @@ export default function Agenda() {
         renderItem={renderizarContato}
         ItemSeparatorComponent={renderizarSeparador}
         ListEmptyComponent={renderizarVazio}
+        refreshControl={
+          <RefreshControl
+            refreshing={atualizando}
+            onRefresh={atualizarContatos}
+          />
+        }
       />
     </View>
   );
@@ -203,4 +223,5 @@ const styles = StyleSheet.create({
     color: "#808080",
     fontStyle: "italic",
   },
-});
+
+  });
