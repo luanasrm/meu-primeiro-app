@@ -101,7 +101,7 @@ export default function Agenda() {
     setTimeout(() => {
       setContatos(contatosIniciais);
       setAtualizando(false);
-    }, 1500);
+    }, 2000);
   };
 
   // Função responsável por desenhar cada contato
