@@ -1,3 +1,5 @@
+
+
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -91,8 +93,11 @@ export default function Agenda() {
   // Estado que armazena os contatos
   const [contatos, setContatos] = useState(contatosIniciais);
 
-  // Estado que controla o carregamento da atualização
+  // Estado do Pull-to-Refresh
   const [atualizando, setAtualizando] = useState(false);
+
+  // Estado do carregamento de novos contatos
+  const [carregandoMais, setCarregandoMais] = useState(false);
 
   // Atualiza a lista de contatos
   const atualizarContatos = () => {
@@ -104,7 +109,44 @@ export default function Agenda() {
     }, 2000);
   };
 
-  // Função responsável por desenhar cada contato
+  // Carrega mais contatos ao chegar ao final da lista
+  const carregarMaisContatos = () => {
+    if (carregandoMais) {
+      return;
+    }
+
+    setCarregandoMais(true);
+
+    setTimeout(() => {
+      setContatos((contatosAtuais) => {
+        const proximoId = contatosAtuais.length + 1;
+
+        const novosContatos = [
+          {
+            id: String(proximoId),
+            nome: `Novo Contato ${proximoId}`,
+            telefone: `(31) 90000-${String(proximoId).padStart(4, "0")}`,
+          },
+          {
+            id: String(proximoId + 1),
+            nome: `Novo Contato ${proximoId + 1}`,
+            telefone: `(31) 90000-${String(proximoId + 1).padStart(4, "0")}`,
+          },
+          {
+            id: String(proximoId + 2),
+            nome: `Novo Contato ${proximoId + 2}`,
+            telefone: `(31) 90000-${String(proximoId + 2).padStart(4, "0")}`,
+          },
+        ];
+
+        return [...contatosAtuais, ...novosContatos];
+      });
+
+      setCarregandoMais(false);
+    }, 1000);
+  };
+
+  // Desenha cada contato
   const renderizarContato = ({ item }) => (
     <View style={styles.cardContato}>
       <Text style={styles.nomeText}>{item.nome}</Text>
@@ -117,7 +159,7 @@ export default function Agenda() {
     <View style={styles.separador} />
   );
 
-  // Componente exibido quando a lista está vazia
+  // Mensagem quando a lista está vazia
   const renderizarVazio = () => (
     <View style={styles.containerVazio}>
       <Text style={styles.textoVazio}>Agenda Vazia.</Text>
@@ -154,6 +196,8 @@ export default function Agenda() {
             onRefresh={atualizarContatos}
           />
         }
+        onEndReached={carregarMaisContatos}
+        onEndReachedThreshold={0.5}
       />
     </View>
   );
@@ -223,5 +267,6 @@ const styles = StyleSheet.create({
     color: "#808080",
     fontStyle: "italic",
   },
+});
 
-  });
+
